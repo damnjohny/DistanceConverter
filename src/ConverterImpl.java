@@ -45,4 +45,14 @@ public class ConverterImpl implements Converter{
     public void setConvert_to(String convert_to) {
         this.convert_to = convert_to;
     }
+
+    @Override
+    public String toString() {
+        return "ConverterImpl{" +
+                "unit='" + unit + '\'' +
+                ", value=" + value +
+                ", map=" + map +
+                ", convert_to='" + convert_to + '\'' +
+                '}';
+    }
 }

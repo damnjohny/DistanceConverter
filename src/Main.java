@@ -32,8 +32,6 @@ public class Main {
         converter.setMap(map);
         String result = mapper.writeValueAsString(converter);
 
-//        System.out.println(result);
-
         if (map.containsKey("m") && converter.getConvert_to().equals("cm")) {
             System.out.print("Result = " + Converter.mToCm(converter.getValue()));
 
