@@ -1,75 +1,50 @@
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        ConverterImpl converter = new ConverterImpl();
+    public static void main(String[] args) throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        Reader reader = new FileReader(args[0]);
+        JSONObject jsonObject = (JSONObject) new JSONParser().parse(reader);
+        JSONObject distanceObject = (JSONObject) jsonObject.get("distance");
+        String unit = (String) distanceObject.get("unit");
+        double value = (double) distanceObject.get("value");
+        String convert_to = (String) jsonObject.get("convert_to");
 
-        Scanner scanner = new Scanner(System.in);
-        Scanner scanner1 = new Scanner(System.in);
-        Scanner scanner2 = new Scanner(System.in);
+        System.out.println("Converting " + value + " from " + unit.toUpperCase(Locale.ROOT) + " to " + convert_to.toUpperCase(Locale.ROOT) + "...");
 
-        System.out.println("Unit: ");
-        converter.setUnit(scanner.nextLine());
-        System.out.println("Value: ");
-        converter.setValue(scanner1.nextDouble());
-        System.out.println("Convert to: ");
-        converter.setConvert_to(scanner2.nextLine());
-
-        scanner.close();
-        scanner1.close();
-        scanner2.close();
-
-        Map<String, Double> map = new HashMap<>();
-        map.put(converter.getUnit(), converter.getValue());
-        converter.setMap(map);
-        String result = mapper.writeValueAsString(converter);
-
-        if (map.containsKey("m") && converter.getConvert_to().equals("cm")) {
-            System.out.print("Result = " + Converter.mToCm(converter.getValue()));
-
-        } else if (map.containsKey("m") && converter.getConvert_to().equals("in")) {
-            System.out.print("Result = " + Converter.mToIn(converter.getValue()));
-
-        } else if (map.containsKey("m") && converter.getConvert_to().equals("ft")) {
-            System.out.print("Result = " + Converter.mToFt(converter.getValue()));
-
-        } else if (map.containsKey("cm") && converter.getConvert_to().equals("m")) {
-            System.out.print("Result = " + Converter.cmToM(converter.getValue()));
-
-        } else if (map.containsKey("cm") && converter.getConvert_to().equals("in")) {
-            System.out.print("Result = " + Converter.cmToIn(converter.getValue()));
-
-        } else if (map.containsKey("cm") && converter.getConvert_to().equals("ft")) {
-            System.out.print("Result = " + Converter.cmToFt(converter.getValue()));
-
-        } else if (map.containsKey("in") && converter.getConvert_to().equals("cm")) {
-            System.out.print("Result = " + Converter.inToCm(converter.getValue()));
-
-        } else if (map.containsKey("in") && converter.getConvert_to().equals("m")) {
-            System.out.print("Result = " + Converter.inToM(converter.getValue()));
-
-        } else if (map.containsKey("in") && converter.getConvert_to().equals("ft")) {
-            System.out.print("Result = " + Converter.inToFt(converter.getValue()));
-
-        } else if (map.containsKey("ft") && converter.getConvert_to().equals("cm")) {
-            System.out.print("Result = " + Converter.ftToCm(converter.getValue()));
-
-        } else if (map.containsKey("ft") && converter.getConvert_to().equals("m")) {
-            System.out.print("Result = " + Converter.ftToM(converter.getValue()));
-
-        } else if (map.containsKey("ft") && converter.getConvert_to().equals("in")) {
-            System.out.print("Result = " + Converter.ftToIn(converter.getValue()));
-
-        } else {
-            System.out.print("Wrong values! Please type correct values.");
+        if (unit.equals("cm") && convert_to.equals("m")) {
+            Converter.cmToM(value);
+        } else if(unit.equals("cm") && convert_to.equals("in")) {
+            Converter.cmToIn(value);
+        } else if(unit.equals("cm") && convert_to.equals("ft")) {
+            Converter.cmToFt(value);
+        } else if(unit.equals("m") && convert_to.equals("cm")) {
+            Converter.mToCm(value);
+        } else if(unit.equals("m") && convert_to.equals("in")) {
+            Converter.mToIn(value);
+        } else if(unit.equals("m") && convert_to.equals("ft")) {
+            Converter.mToFt(value);
+        } else if(unit.equals("in") && convert_to.equals("cm")) {
+            Converter.inToCm(value);
+        } else if(unit.equals("in") && convert_to.equals("m")) {
+            Converter.inToM(value);
+        } else if(unit.equals("in") && convert_to.equals("ft")) {
+            Converter.inToFt(value);
+        } else if(unit.equals("ft") && convert_to.equals("cm")) {
+            Converter.ftToCm(value);
+        } else if(unit.equals("ft") && convert_to.equals("m")) {
+            Converter.ftToM(value);
+        } else if(unit.equals("ft") && convert_to.equals("in")) {
+            Converter.ftToIn(value);
         }
     }
 }
