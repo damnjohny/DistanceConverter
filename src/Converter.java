@@ -5,7 +5,7 @@ public interface Converter {
         return m * 100d;
     }
 
-    public static double mToIn(double m) {
+    public static double mToInch(double m) {
         System.out.println(m * 39.3701d);
         return m * 39.3701d;
     }
@@ -20,7 +20,7 @@ public interface Converter {
         return cm * 0.01d;
     }
 
-    public static double cmToIn(double cm) {
+    public static double cmToInch(double cm) {
         System.out.println(cm * 0.393701d);
         return cm * 0.393701d;
     }
@@ -30,17 +30,17 @@ public interface Converter {
         return cm * 0.0328084d;
     }
 
-    public static double inToM(double in) {
+    public static double inchToM(double in) {
         System.out.println(in * 0.0254d);
         return in * 0.0254d;
     }
 
-    public static double inToCm(double in) {
+    public static double inchToCm(double in) {
         System.out.println(in * 2.54d);
         return in * 2.54d;
     }
 
-    public static double inToFt(double in) {
+    public static double inchToFt(double in) {
         System.out.println(in * 0.0833333d);
         return in * 0.0833333d;
     }
@@ -55,7 +55,7 @@ public interface Converter {
         return ft * 30.48d;
     }
 
-    public static double ftToIn(double ft) {
+    public static double ftToInch(double ft) {
         System.out.println(ft * 12);
         return ft * 12;
     }
