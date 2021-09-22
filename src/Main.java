@@ -1,17 +1,15 @@
-import org.json.simple.JSONArray;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) throws IOException, ParseException {
-        JSONParser parser = new JSONParser();
+
         Reader reader = new FileReader(args[0]);
         JSONObject jsonObject = (JSONObject) new JSONParser().parse(reader);
         JSONObject distanceObject = (JSONObject) jsonObject.get("distance");
